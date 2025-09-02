@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ categoria }} - AlgoCards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>{{ categoria }}</h1>
+    <a href="/">⬅ Volver</a>
+    {% for card in tarjetas %}
+        <div class="tarjeta">
+            <h2>{{ card.termino }}</h2>
+            <p><strong>Definición:</strong> {{ card.definicion }}</p>
+            <pre><strong>Sintaxis:</strong> {{ card.sintaxis }}</pre>
+            <pre><strong>Pseudocódigo:</strong> {{ card.pseudocodigo }}</pre>
+        </div>
+    {% endfor %}
+</body>
+</html>
