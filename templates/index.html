@@ -48,13 +48,13 @@
                     <div class="card h-100 shadow-sm card-hover">
                         <!-- ===== CABECERA DE TARJETA MODIFICADA CON BOTÓN DE VOZ ===== -->
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h3 class="h5 mb-0">{{ tarjeta.termino }}</h3>
-                            <button class="btn btn-sm btn-outline-secondary speak-btn" title="Escuchar definición" data-text-to-speak="{{ tarjeta.definicion }}">🔊</button>
+                            <h3 class="h5 mb-0">{{ tarjeta.term }}</h3>
+                            <button class="btn btn-sm btn-outline-secondary speak-btn" title="Escuchar definición" data-text-to-speak="{{ tarjeta.definition }}">🔊</button>
                         </div>
                         <div class="card-body d-flex flex-column">
-                            <p class="card-text flex-grow-1">{{ tarjeta.definicion }}</p>
-                            {% if tarjeta.sintaxis %}<div class="mt-auto"><small class="text-muted">Sintaxis:</small><pre class="code-block"><code>{{ tarjeta.sintaxis }}</code></pre></div>{% endif %}
-                            {% if tarjeta.pseudocodigo %}<div class="mt-2"><small class="text-muted">Pseudocódigo:</small><pre class="code-block"><code>{{ tarjeta.pseudocodigo }}</code></pre></div>{% endif %}
+                            <p class="card-text flex-grow-1">{{ tarjeta.definition }}</p>
+                            {% if tarjeta.syntax %}<div class="mt-auto"><small class="text-muted">Syntax:</small><pre class="code-block"><code>{{ tarjeta.syntax }}</code></pre></div>{% endif %}
+                            {% if tarjeta.pseudocode %}<div class="mt-2"><small class="text-muted">Pseudocode:</small><pre class="code-block"><code>{{ tarjeta.pseudocode }}</code></pre></div>{% endif %}
                         </div>
                     </div>
                 </div>
@@ -167,19 +167,19 @@
             const distractors = [];
             while (distractors.length < 3) {
                 const distractorIndex = Math.floor(Math.random() * tarjetasData.length);
-                if (distractorIndex !== correctCardIndex && !distractors.some(d => d.termino === tarjetasData[distractorIndex].termino)) {
+                if (distractorIndex !== correctCardIndex && !distractors.some(d => d.term === tarjetasData[distractorIndex].term)) {
                     distractors.push(tarjetasData[distractorIndex]);
                 }
             }
             const options = [currentCorrectCard, ...distractors];
             shuffleArray(options);
 
-            if (Math.random() > 0.5 && currentCorrectCard.definicion) {
-                gameQuestionEl.textContent = `¿Cuál es el término para la definición: "${currentCorrectCard.definicion}"?`;
-                options.forEach(opt => createOptionButton(opt.termino, opt.termino === currentCorrectCard.termino));
+            if (Math.random() > 0.5 && currentCorrectCard.definition) {
+                gameQuestionEl.textContent = `¿Cuál es el término para la definición: "${currentCorrectCard.definition}"?`;
+                options.forEach(opt => createOptionButton(opt.term, opt.term === currentCorrectCard.term));
             } else {
-                gameQuestionEl.textContent = `¿Cuál es la definición del término: "${currentCorrectCard.termino}"?`;
-                options.forEach(opt => createOptionButton(opt.definicion, opt.termino === currentCorrectCard.termino));
+                gameQuestionEl.textContent = `¿Cuál es la definición del término: "${currentCorrectCard.term}"?`;
+                options.forEach(opt => createOptionButton(opt.definition, opt.term === currentCorrectCard.term));
             }
         }
 
@@ -205,7 +205,7 @@
                 selectedBtn.classList.replace('btn-outline-secondary', 'btn-success');
             } else {
                 incorrectSound.play();
-                gameFeedbackEl.innerHTML = `Incorrecto. La respuesta correcta era: <strong>${currentCorrectCard.termino}</strong>`;
+                gameFeedbackEl.innerHTML = `Incorrecto. La respuesta correcta era: <strong>${currentCorrectCard.term}</strong>`;
                 gameFeedbackEl.className = 'incorrect-feedback';
                 selectedBtn.classList.replace('btn-outline-secondary', 'btn-danger');
                 const correctBtn = gameOptionsEl.querySelector('[data-correct="true"]');
