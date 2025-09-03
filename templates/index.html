@@ -118,7 +118,7 @@
             if (synth.speaking) synth.cancel();
             if (textToSpeak) {
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'es-ES';
+                utterance.lang = 'en-US';
                 synth.speak(utterance);
             }
         }
